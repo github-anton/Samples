@@ -1,0 +1,9 @@
+#!/bin/sh
+
+uis=`ls *.ui`
+
+for ui in $uis ; do
+  f=`echo $ui|awk -F.ui '{print $1}'`
+  uic -o ui_$f.h $f.ui
+  moc $f.h -o $f.moc
+done

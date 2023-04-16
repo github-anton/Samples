@@ -1,0 +1,140 @@
+Состояние 0 конфликты: 1 сдвига/вывода
+
+
+Грамматика
+
+    0 $accept: session $end
+
+    1 session: session MENU
+    2        | COMMAND
+    3        | TEXT
+    4        | %empty
+
+    5 MENU: DIGIT POINT SPACE TEXT '\n'
+
+    6 COMMAND: DIGIT '\n'
+
+
+Терминальные символы с правилами, в которых они появляются
+
+$end (0) 0
+'\n' (10) 5 6
+error (256)
+DIGIT (258) 5 6
+POINT (259) 5
+SPACE (260) 5
+TEXT (261) 3 5
+
+
+Нетерминальные символы с правилами, в которых они появляются
+
+$accept (8)
+    налево: 0
+session (9)
+    налево: 1 2 3 4, направо: 0 1
+MENU (10)
+    налево: 5, направо: 1
+COMMAND (11)
+    налево: 6, направо: 2
+
+
+State 0
+
+    0 $accept: . session $end
+
+    DIGIT  сдвиг, и переход в состояние 1
+    TEXT   сдвиг, и переход в состояние 2
+
+    DIGIT     [вывод с использованием правила 4 (session)]
+    $default  вывод с использованием правила 4 (session)
+
+    session  переход в состояние 3
+    COMMAND  переход в состояние 4
+
+
+State 1
+
+    6 COMMAND: DIGIT . '\n'
+
+    '\n'  сдвиг, и переход в состояние 5
+
+
+State 2
+
+    3 session: TEXT .
+
+    $default  вывод с использованием правила 3 (session)
+
+
+State 3
+
+    0 $accept: session . $end
+    1 session: session . MENU
+
+    $end   сдвиг, и переход в состояние 6
+    DIGIT  сдвиг, и переход в состояние 7
+
+    MENU  переход в состояние 8
+
+
+State 4
+
+    2 session: COMMAND .
+
+    $default  вывод с использованием правила 2 (session)
+
+
+State 5
+
+    6 COMMAND: DIGIT '\n' .
+
+    $default  вывод с использованием правила 6 (COMMAND)
+
+
+State 6
+
+    0 $accept: session $end .
+
+    $default  принять
+
+
+State 7
+
+    5 MENU: DIGIT . POINT SPACE TEXT '\n'
+
+    POINT  сдвиг, и переход в состояние 9
+
+
+State 8
+
+    1 session: session MENU .
+
+    $default  вывод с использованием правила 1 (session)
+
+
+State 9
+
+    5 MENU: DIGIT POINT . SPACE TEXT '\n'
+
+    SPACE  сдвиг, и переход в состояние 10
+
+
+State 10
+
+    5 MENU: DIGIT POINT SPACE . TEXT '\n'
+
+    TEXT  сдвиг, и переход в состояние 11
+
+
+State 11
+
+    5 MENU: DIGIT POINT SPACE TEXT . '\n'
+
+    '\n'  сдвиг, и переход в состояние 12
+
+
+State 12
+
+    5 MENU: DIGIT POINT SPACE TEXT '\n' .
+
+    $default  вывод с использованием правила 5 (MENU)

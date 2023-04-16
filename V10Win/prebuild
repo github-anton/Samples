@@ -1,0 +1,9 @@
+#!/bin/sh
+
+./qtgen && \
+./qtsubst CMainForm.ui textEdit CTermTextEdit
+
+moc CTermTextEdit.h -o CTermTextEdit.moc
+
+flex -o parser.l.cpp parser.l
+yacc --verbose --debug -d parser.y -o parser.y.cpp

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QWinMain</class>
+ <widget class="QMainWindow" name="QWinMain">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>940</width>
+    <height>609</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ExoTrade</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame_0">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>0</y>
+      <width>781</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_1">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>440</y>
+      <width>781</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>161</width>
+      <height>551</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>940</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuTicker">
+    <property name="title">
+     <string>Ticker</string>
+    </property>
+    <addaction name="actionAdd_ticker"/>
+    <addaction name="actionRemove_ticker"/>
+   </widget>
+   <widget class="QMenu" name="menuTimeFrame">
+    <property name="geometry">
+     <rect>
+      <x>308</x>
+      <y>158</y>
+      <width>131</width>
+      <height>275</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="title">
+     <string>TimeFrame</string>
+    </property>
+    <addaction name="action1m"/>
+    <addaction name="action5m"/>
+    <addaction name="action15m"/>
+    <addaction name="action30m"/>
+    <addaction name="action60m"/>
+    <addaction name="separator"/>
+    <addaction name="action1D"/>
+    <addaction name="action1W"/>
+    <addaction name="action1M"/>
+   </widget>
+   <addaction name="menuTicker"/>
+   <addaction name="menuTimeFrame"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionAdd_ticker">
+   <property name="text">
+    <string>Add            </string>
+   </property>
+  </action>
+  <action name="actionRemove_ticker">
+   <property name="text">
+    <string>Remove     </string>
+   </property>
+  </action>
+  <action name="action1m">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>1m</string>
+   </property>
+  </action>
+  <action name="action5m">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>5m</string>
+   </property>
+  </action>
+  <action name="action15m">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>15m</string>
+   </property>
+  </action>
+  <action name="action30m">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>30m</string>
+   </property>
+  </action>
+  <action name="action60m">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>60m</string>
+   </property>
+  </action>
+  <action name="action1D">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>1D</string>
+   </property>
+  </action>
+  <action name="action1W">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>1W</string>
+   </property>
+  </action>
+  <action name="action1M">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>1M</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

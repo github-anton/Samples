@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# $1 - file.ui
+# $2 - widget name
+# $3 - widget new type
+
+file=`echo $1 | cut -d'.' -f1`
+
+# Find widget line
+line=`cat $1 | grep $2`
+
+# Extract type
+type=`echo $line | awk '{print $2}' | awk -F= '{print $2}' | awk -F\" '{print $2}'`
+
+# Generate line with new type
+new_line=`echo $line | awk "{print gensub(/$type/, \"$3\", 1)}"`
+new_line=`echo $new_line | awk '{gsub(/"/, "\\\\\""); print $0}'`
+echo $new_line
+
+# Substitute new line into a new ui file
+cat $1 | awk "{print gensub(/$line/, \"$new_line\", 1)}" > ${file}.uis
+
+# Generate header file with new type
+uic -o ui_${file}.h ${file}.uis
+
+# Fix include header file
+wrong_type_header=\<`echo $3 | awk '{print tolower($0)}'`.h\>
+cat ui_${file}.h | awk "{print gensub(/$wrong_type_header/, \"\\\"$3.h\\\"\", 1)}" > ui_${file}.h.tmp
+mv ui_${file}.h.tmp ui_${file}.h 

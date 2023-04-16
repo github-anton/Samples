@@ -1,0 +1,286 @@
+Грамматика
+
+    0 $accept: session $end
+
+    1 session: session MENU_OPTION
+    2        | session SELECT_COMMAND
+    3        | session MESSAGE
+    4        | session PROMPT
+    5        | session OPTION_ECHO
+    6        | %empty
+
+    7 MENU_OPTION: NUMBER POINT SPACE TEXT
+
+    8 SELECT_COMMAND: NUMBER '\n'
+
+    9 MESSAGE: TEXT
+   10        | TEXT COLON SPACE NUMBER SPACE TEXT COLON SPACE HEX SPACE TEXT COLON SPACE HEX
+
+   11 PROMPT: TEXT MINUS
+   12       | TEXT COLON SPACE MINUS
+
+   13 OPTION_ECHO: NUMBER
+
+
+Терминальные символы с правилами, в которых они появляются
+
+$end (0) 0
+'\n' (10) 8
+error (256)
+NUMBER (258) 7 8 10 13
+TEXT (259) 7 9 10 11 12
+POINT (260) 7
+SPACE (261) 7 10 12
+MINUS (262) 11 12
+COLON (263) 10 12
+HEX (264) 10
+
+
+Нетерминальные символы с правилами, в которых они появляются
+
+$accept (11)
+    налево: 0
+session (12)
+    налево: 1 2 3 4 5 6, направо: 0 1 2 3 4 5
+MENU_OPTION (13)
+    налево: 7, направо: 1
+SELECT_COMMAND (14)
+    налево: 8, направо: 2
+MESSAGE (15)
+    налево: 9 10, направо: 3
+PROMPT (16)
+    налево: 11 12, направо: 4
+OPTION_ECHO (17)
+    налево: 13, направо: 5
+
+
+State 0
+
+    0 $accept: . session $end
+
+    $default  вывод с использованием правила 6 (session)
+
+    session  переход в состояние 1
+
+
+State 1
+
+    0 $accept: session . $end
+    1 session: session . MENU_OPTION
+    2        | session . SELECT_COMMAND
+    3        | session . MESSAGE
+    4        | session . PROMPT
+    5        | session . OPTION_ECHO
+
+    $end    сдвиг, и переход в состояние 2
+    NUMBER  сдвиг, и переход в состояние 3
+    TEXT    сдвиг, и переход в состояние 4
+
+    MENU_OPTION     переход в состояние 5
+    SELECT_COMMAND  переход в состояние 6
+    MESSAGE         переход в состояние 7
+    PROMPT          переход в состояние 8
+    OPTION_ECHO     переход в состояние 9
+
+
+State 2
+
+    0 $accept: session $end .
+
+    $default  принять
+
+
+State 3
+
+    7 MENU_OPTION: NUMBER . POINT SPACE TEXT
+    8 SELECT_COMMAND: NUMBER . '\n'
+   13 OPTION_ECHO: NUMBER .
+
+    POINT  сдвиг, и переход в состояние 10
+    '\n'   сдвиг, и переход в состояние 11
+
+    $default  вывод с использованием правила 13 (OPTION_ECHO)
+
+
+State 4
+
+    9 MESSAGE: TEXT .
+   10        | TEXT . COLON SPACE NUMBER SPACE TEXT COLON SPACE HEX SPACE TEXT COLON SPACE HEX
+   11 PROMPT: TEXT . MINUS
+   12       | TEXT . COLON SPACE MINUS
+
+    MINUS  сдвиг, и переход в состояние 12
+    COLON  сдвиг, и переход в состояние 13
+
+    $default  вывод с использованием правила 9 (MESSAGE)
+
+
+State 5
+
+    1 session: session MENU_OPTION .
+
+    $default  вывод с использованием правила 1 (session)
+
+
+State 6
+
+    2 session: session SELECT_COMMAND .
+
+    $default  вывод с использованием правила 2 (session)
+
+
+State 7
+
+    3 session: session MESSAGE .
+
+    $default  вывод с использованием правила 3 (session)
+
+
+State 8
+
+    4 session: session PROMPT .
+
+    $default  вывод с использованием правила 4 (session)
+
+
+State 9
+
+    5 session: session OPTION_ECHO .
+
+    $default  вывод с использованием правила 5 (session)
+
+
+State 10
+
+    7 MENU_OPTION: NUMBER POINT . SPACE TEXT
+
+    SPACE  сдвиг, и переход в состояние 14
+
+
+State 11
+
+    8 SELECT_COMMAND: NUMBER '\n' .
+
+    $default  вывод с использованием правила 8 (SELECT_COMMAND)
+
+
+State 12
+
+   11 PROMPT: TEXT MINUS .
+
+    $default  вывод с использованием правила 11 (PROMPT)
+
+
+State 13
+
+   10 MESSAGE: TEXT COLON . SPACE NUMBER SPACE TEXT COLON SPACE HEX SPACE TEXT COLON SPACE HEX
+   12 PROMPT: TEXT COLON . SPACE MINUS
+
+    SPACE  сдвиг, и переход в состояние 15
+
+
+State 14
+
+    7 MENU_OPTION: NUMBER POINT SPACE . TEXT
+
+    TEXT  сдвиг, и переход в состояние 16
+
+
+State 15
+
+   10 MESSAGE: TEXT COLON SPACE . NUMBER SPACE TEXT COLON SPACE HEX SPACE TEXT COLON SPACE HEX
+   12 PROMPT: TEXT COLON SPACE . MINUS
+
+    NUMBER  сдвиг, и переход в состояние 17
+    MINUS   сдвиг, и переход в состояние 18
+
+
+State 16
+
+    7 MENU_OPTION: NUMBER POINT SPACE TEXT .
+
+    $default  вывод с использованием правила 7 (MENU_OPTION)
+
+
+State 17
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER . SPACE TEXT COLON SPACE HEX SPACE TEXT COLON SPACE HEX
+
+    SPACE  сдвиг, и переход в состояние 19
+
+
+State 18
+
+   12 PROMPT: TEXT COLON SPACE MINUS .
+
+    $default  вывод с использованием правила 12 (PROMPT)
+
+
+State 19
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER SPACE . TEXT COLON SPACE HEX SPACE TEXT COLON SPACE HEX
+
+    TEXT  сдвиг, и переход в состояние 20
+
+
+State 20
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER SPACE TEXT . COLON SPACE HEX SPACE TEXT COLON SPACE HEX
+
+    COLON  сдвиг, и переход в состояние 21
+
+
+State 21
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER SPACE TEXT COLON . SPACE HEX SPACE TEXT COLON SPACE HEX
+
+    SPACE  сдвиг, и переход в состояние 22
+
+
+State 22
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER SPACE TEXT COLON SPACE . HEX SPACE TEXT COLON SPACE HEX
+
+    HEX  сдвиг, и переход в состояние 23
+
+
+State 23
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER SPACE TEXT COLON SPACE HEX . SPACE TEXT COLON SPACE HEX
+
+    SPACE  сдвиг, и переход в состояние 24
+
+
+State 24
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER SPACE TEXT COLON SPACE HEX SPACE . TEXT COLON SPACE HEX
+
+    TEXT  сдвиг, и переход в состояние 25
+
+
+State 25
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER SPACE TEXT COLON SPACE HEX SPACE TEXT . COLON SPACE HEX
+
+    COLON  сдвиг, и переход в состояние 26
+
+
+State 26
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER SPACE TEXT COLON SPACE HEX SPACE TEXT COLON . SPACE HEX
+
+    SPACE  сдвиг, и переход в состояние 27
+
+
+State 27
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER SPACE TEXT COLON SPACE HEX SPACE TEXT COLON SPACE . HEX
+
+    HEX  сдвиг, и переход в состояние 28
+
+
+State 28
+
+   10 MESSAGE: TEXT COLON SPACE NUMBER SPACE TEXT COLON SPACE HEX SPACE TEXT COLON SPACE HEX .
+
+    $default  вывод с использованием правила 10 (MESSAGE)
